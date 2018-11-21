@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD41598121A469E2009814D4 /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD41598021A469E2009814D4 /* PhotoAlbumViewController.swift */; };
 		FDF0587D21A1B1F40009C778 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF0587C21A1B1F40009C778 /* AppDelegate.swift */; };
 		FDF0587F21A1B1F40009C778 /* TravelLocationsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF0587E21A1B1F40009C778 /* TravelLocationsMapViewController.swift */; };
 		FDF0588221A1B1F40009C778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDF0588021A1B1F40009C778 /* Main.storyboard */; };
@@ -14,11 +15,10 @@
 		FDF0588721A1B1F60009C778 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDF0588521A1B1F60009C778 /* LaunchScreen.storyboard */; };
 		FDF0589321A1BB7A0009C778 /* LocarionData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FDF0589121A1BB7A0009C778 /* LocarionData.xcdatamodeld */; };
 		FDF0589521A1D18D0009C778 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF0589421A1D18D0009C778 /* DataController.swift */; };
-		FDF0589921A1E43C0009C778 /* Pin+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF0589721A1E43C0009C778 /* Pin+Extensions.swift */; };
-		FDF0589A21A1E43C0009C778 /* Photo+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF0589821A1E43C0009C778 /* Photo+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FD41598021A469E2009814D4 /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 		FDF0587921A1B1F40009C778 /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF0587C21A1B1F40009C778 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDF0587E21A1B1F40009C778 /* TravelLocationsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationsMapViewController.swift; sourceTree = "<group>"; };
@@ -28,8 +28,6 @@
 		FDF0588821A1B1F60009C778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDF0589221A1BB7A0009C778 /* LocationData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocationData.xcdatamodel; sourceTree = "<group>"; };
 		FDF0589421A1D18D0009C778 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		FDF0589721A1E43C0009C778 /* Pin+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Pin+Extensions.swift"; sourceTree = "<group>"; };
-		FDF0589821A1E43C0009C778 /* Photo+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +74,6 @@
 		FDF0588E21A1BAF10009C778 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FDF0589621A1E43C0009C778 /* Managed Object Extensions */,
 				FDF0589421A1D18D0009C778 /* DataController.swift */,
 				FDF0589121A1BB7A0009C778 /* LocarionData.xcdatamodeld */,
 			);
@@ -95,17 +92,9 @@
 			isa = PBXGroup;
 			children = (
 				FDF0587E21A1B1F40009C778 /* TravelLocationsMapViewController.swift */,
+				FD41598021A469E2009814D4 /* PhotoAlbumViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		FDF0589621A1E43C0009C778 /* Managed Object Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				FDF0589721A1E43C0009C778 /* Pin+Extensions.swift */,
-				FDF0589821A1E43C0009C778 /* Photo+Extensions.swift */,
-			);
-			path = "Managed Object Extensions";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,9 +168,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDF0589A21A1E43C0009C778 /* Photo+Extensions.swift in Sources */,
+				FD41598121A469E2009814D4 /* PhotoAlbumViewController.swift in Sources */,
 				FDF0587F21A1B1F40009C778 /* TravelLocationsMapViewController.swift in Sources */,
-				FDF0589921A1E43C0009C778 /* Pin+Extensions.swift in Sources */,
 				FDF0589521A1D18D0009C778 /* DataController.swift in Sources */,
 				FDF0589321A1BB7A0009C778 /* LocarionData.xcdatamodeld in Sources */,
 				FDF0587D21A1B1F40009C778 /* AppDelegate.swift in Sources */,

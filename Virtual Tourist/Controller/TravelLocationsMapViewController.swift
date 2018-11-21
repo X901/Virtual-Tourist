@@ -15,8 +15,7 @@ class TravelLocationsMapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     var dataController:DataController!
     var annotations = [MKAnnotation]()
-    var locationArray = [CLLocation]()
-
+var pinSelected: Pin!
     
     var fetchedResultsController:NSFetchedResultsController<Pin>!
 
@@ -41,16 +40,50 @@ class TravelLocationsMapViewController: UIViewController {
         let longGesture = UILongPressGestureRecognizer(target: self, action:
             #selector(longTap(_:)))
         mapView.addGestureRecognizer(longGesture)
-        
-   setUpFetchedResultsController()
+        setUpFetchedResultsController()
   showPinsOnMapWhenAppStart()
         
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpFetchedResultsController()
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+ 
+        super.viewDidDisappear(animated)
+
+        fetchedResultsController = nil
+
+    }
+  
+    //toPhotoAlbum
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if (segue.identifier == "toPhotoAlbum" ) {
+        if let vc = segue.destination as? PhotoAlbumViewController {
+
+  vc.dataController = dataController
+ vc.pin = pinSelected
+            
+            }
+        }
+        
+        
+    }
+
+    
     func showPinsOnMapWhenAppStart(){
   
-        for location in fetchedResultsController.fetchedObjects as! [Pin] {
+        if let lastPin = fetchedResultsController.fetchedObjects?.last {
+            zoomToLastPin(lastPin: lastPin)
+        }
+        
+       
+        for location in fetchedResultsController.fetchedObjects! {
 
             let latitude = location.latitude
             let longitude = location.longitude
@@ -71,6 +104,16 @@ class TravelLocationsMapViewController: UIViewController {
         }
 
     
+    func zoomToLastPin(lastPin:Pin){
+        
+        
+        //zooming to location
+        let coredinate:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lastPin.coordinate.latitude, lastPin.coordinate.longitude)
+        let span = MKCoordinateSpan(latitudeDelta: 3.0, longitudeDelta: 3.0)
+        let region = MKCoordinateRegion(center: coredinate, span: span)
+        self.mapView.setRegion(region, animated: true)
+        
+    }
 
 
     @objc func longTap(_ sender: UIGestureRecognizer){
@@ -147,10 +190,61 @@ extension TravelLocationsMapViewController : NSFetchedResultsControllerDelegate 
 
 extension Pin: MKAnnotation {
     public var coordinate: CLLocationCoordinate2D {
-        
+
         let latDegrees = CLLocationDegrees(latitude)
         let longDegrees = CLLocationDegrees(longitude)
         return CLLocationCoordinate2D(latitude: latDegrees, longitude: longDegrees)
-        
+
     }
 }
+
+
+extension TravelLocationsMapViewController : MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.pinTintColor = .red
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        
+        return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        if let annotation = view.annotation  {
+        print("The latitude is: ", annotation.coordinate.latitude)
+        print("The longitude is: ", annotation.coordinate.longitude)
+
+        let selectedAnnotation = view.annotation
+        let selectedAnnotationLat = selectedAnnotation?.coordinate.latitude
+        let selectedAnnotationLong = selectedAnnotation?.coordinate.longitude
+        if let result = fetchedResultsController.fetchedObjects {
+            for pin in result {
+                if pin.latitude == selectedAnnotationLat && pin.longitude == selectedAnnotationLong {
+                    pinSelected = pin
+                    break
+                }
+            }
+        }
+
+            performSegue(withIdentifier: "toPhotoAlbum", sender: self)
+        
+        
+        }
+        
+        
+
+    }
+   
+}
+
