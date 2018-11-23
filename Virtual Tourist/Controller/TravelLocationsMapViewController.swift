@@ -48,16 +48,14 @@ var pinSelected: Pin!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setUpFetchedResultsController()
+        
+       setUpFetchedResultsController()
 
     }
     
     override func viewDidDisappear(_ animated: Bool) {
- 
         super.viewDidDisappear(animated)
-
         fetchedResultsController = nil
-
     }
   
     //toPhotoAlbum
@@ -78,8 +76,12 @@ var pinSelected: Pin!
     
     func showPinsOnMapWhenAppStart(){
   
-        if let lastPin = fetchedResultsController.fetchedObjects?.last {
+        //this will display last pin added !
+        //i'm not sure why the last pin added on begin of the aray ! , but it's working fine
+        if let lastPin = fetchedResultsController.fetchedObjects?.first {
             zoomToLastPin(lastPin: lastPin)
+            
+            print("lastPen: \(lastPin)")
         }
         
        
@@ -147,6 +149,7 @@ var pinSelected: Pin!
         do
         {
            try dataController.viewContext.save()
+            print("Pin Saved")
         }
         catch
         {
@@ -225,12 +228,12 @@ extension TravelLocationsMapViewController : MKMapViewDelegate {
         print("The latitude is: ", annotation.coordinate.latitude)
         print("The longitude is: ", annotation.coordinate.longitude)
 
-        let selectedAnnotation = view.annotation
-        let selectedAnnotationLat = selectedAnnotation?.coordinate.latitude
-        let selectedAnnotationLong = selectedAnnotation?.coordinate.longitude
+        let annotation = view.annotation
+        let annotationLat = annotation?.coordinate.latitude
+        let annotationLong = annotation?.coordinate.longitude
         if let result = fetchedResultsController.fetchedObjects {
             for pin in result {
-                if pin.latitude == selectedAnnotationLat && pin.longitude == selectedAnnotationLong {
+                if pin.latitude == annotationLat && pin.longitude == annotationLong {
                     pinSelected = pin
                     break
                 }
