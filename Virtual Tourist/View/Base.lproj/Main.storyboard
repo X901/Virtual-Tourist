@@ -85,32 +85,41 @@
                                                     <rect key="frame" x="36.5" y="36.5" width="37" height="37"/>
                                                     <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </activityIndicatorView>
+                                                <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8c-qq-wPo">
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="qgY-TN-ge9" firstAttribute="centerY" secondItem="HRj-mk-96X" secondAttribute="centerY" id="1cR-TO-bB3"/>
                                             <constraint firstAttribute="bottom" secondItem="JGo-m8-cRb" secondAttribute="bottom" id="FD6-d4-ebb"/>
+                                            <constraint firstItem="w8c-qq-wPo" firstAttribute="top" secondItem="HRj-mk-96X" secondAttribute="top" id="PN9-2L-JBS"/>
+                                            <constraint firstItem="w8c-qq-wPo" firstAttribute="leading" secondItem="HRj-mk-96X" secondAttribute="leading" id="Q1G-Ha-iXO"/>
                                             <constraint firstAttribute="trailing" secondItem="JGo-m8-cRb" secondAttribute="trailing" id="ZOY-qX-TcC"/>
+                                            <constraint firstAttribute="trailing" secondItem="w8c-qq-wPo" secondAttribute="trailing" id="ZeI-72-ro4"/>
                                             <constraint firstItem="JGo-m8-cRb" firstAttribute="leading" secondItem="HRj-mk-96X" secondAttribute="leading" id="ggs-ce-qti"/>
                                             <constraint firstItem="JGo-m8-cRb" firstAttribute="top" secondItem="HRj-mk-96X" secondAttribute="top" id="iq3-G9-h6s"/>
+                                            <constraint firstAttribute="bottom" secondItem="w8c-qq-wPo" secondAttribute="bottom" id="opN-jP-FOY"/>
                                             <constraint firstItem="qgY-TN-ge9" firstAttribute="centerX" secondItem="HRj-mk-96X" secondAttribute="centerX" id="qgZ-jD-tQ1"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="activityIndicator" destination="qgY-TN-ge9" id="ziM-5w-YeZ"/>
                                             <outlet property="imageFlikr" destination="JGo-m8-cRb" id="fBt-Yu-0kX"/>
+                                            <outlet property="selectedView" destination="w8c-qq-wPo" id="cuR-Pd-alD"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="4ce-DA-JMs" id="zq5-Fa-nYd"/>
-                                    <outlet property="delegate" destination="4ce-DA-JMs" id="6XF-XK-S9X"/>
+                                    <outlet property="dataSource" destination="4ce-DA-JMs" id="ck8-Oi-0i2"/>
+                                    <outlet property="delegate" destination="4ce-DA-JMs" id="Ptv-Q8-bcM"/>
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SR3-iV-Ana">
                                 <rect key="frame" x="0.0" y="602" width="375" height="65"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6H-CN-rJM">
-                                        <rect key="frame" x="121" y="14" width="132" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="New Collection"/>
                                         <connections>
@@ -121,10 +130,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="3K3-tF-1d0"/>
-                                    <constraint firstAttribute="bottom" secondItem="S6H-CN-rJM" secondAttribute="bottom" constant="15" id="7aH-mx-xGZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="S6H-CN-rJM" secondAttribute="trailing" constant="122" id="WBf-2o-ldL"/>
-                                    <constraint firstItem="S6H-CN-rJM" firstAttribute="leading" secondItem="SR3-iV-Ana" secondAttribute="leading" constant="121" id="qZr-wV-tb9"/>
-                                    <constraint firstItem="S6H-CN-rJM" firstAttribute="top" secondItem="SR3-iV-Ana" secondAttribute="top" constant="14" id="xfn-pT-9eQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="S6H-CN-rJM" secondAttribute="bottom" id="7aH-mx-xGZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="S6H-CN-rJM" secondAttribute="trailing" id="WBf-2o-ldL"/>
+                                    <constraint firstItem="S6H-CN-rJM" firstAttribute="leading" secondItem="SR3-iV-Ana" secondAttribute="leading" id="qZr-wV-tb9"/>
+                                    <constraint firstItem="S6H-CN-rJM" firstAttribute="top" secondItem="SR3-iV-Ana" secondAttribute="top" id="xfn-pT-9eQ"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFc-qo-3Ze">
@@ -155,6 +164,7 @@
                         <outlet property="collectionView" destination="gUD-fk-YEG" id="dF9-xw-bhr"/>
                         <outlet property="flowLayout" destination="Y0W-Zo-H6I" id="3RS-50-GMw"/>
                         <outlet property="mapView" destination="hYY-sy-uju" id="cMu-i0-B1S"/>
+                        <outlet property="newCollectionButton" destination="S6H-CN-rJM" id="UgU-gk-JD3"/>
                         <outlet property="noImageLable" destination="VFc-qo-3Ze" id="43d-3f-qJ4"/>
                     </connections>
                 </viewController>

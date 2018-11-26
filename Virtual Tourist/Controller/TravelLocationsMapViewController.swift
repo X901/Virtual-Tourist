@@ -81,7 +81,6 @@ var pinSelected: Pin!
         if let lastPin = fetchedResultsController.fetchedObjects?.first {
             zoomToLastPin(lastPin: lastPin)
             
-            print("lastPen: \(lastPin)")
         }
         
        
@@ -141,15 +140,14 @@ var pinSelected: Pin!
     
     func addPinToCoreData(latitude: Double ,longitude: Double) {
         let pin = Pin(context: dataController.viewContext)
-
-  pin.latitude = latitude
-  pin.longitude = longitude
-    pin.creationDate = Date()
+        
+        pin.latitude = latitude
+        pin.longitude = longitude
+        pin.creationDate = Date()
         
         do
         {
-           try dataController.viewContext.save()
-            print("Pin Saved")
+            try dataController.viewContext.save()
         }
         catch
         {
@@ -225,8 +223,6 @@ extension TravelLocationsMapViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         if let annotation = view.annotation  {
-        print("The latitude is: ", annotation.coordinate.latitude)
-        print("The longitude is: ", annotation.coordinate.longitude)
 
         let annotation = view.annotation
         let annotationLat = annotation?.coordinate.latitude

@@ -12,6 +12,9 @@ class PhotoAlbumCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageFlikr: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var selectedView: UIView!
+    
 
     
 
