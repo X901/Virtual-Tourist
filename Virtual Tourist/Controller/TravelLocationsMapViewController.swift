@@ -11,14 +11,14 @@ import MapKit
 import CoreData
 
 class TravelLocationsMapViewController: UIViewController {
-
+    
     @IBOutlet weak var mapView: MKMapView!
     var dataController:DataController!
     var annotations = [MKAnnotation]()
-var pinSelected: Pin!
+    var pinSelected: Pin!
     
     var fetchedResultsController:NSFetchedResultsController<Pin>!
-
+    
     fileprivate func setUpFetchedResultsController() {
         let fetchRequest:NSFetchRequest<Pin> = Pin.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
@@ -32,7 +32,7 @@ var pinSelected: Pin!
             fatalError("The fetch could not be performed : \(error.localizedDescription)")
         }
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,41 +41,41 @@ var pinSelected: Pin!
             #selector(longTap(_:)))
         mapView.addGestureRecognizer(longGesture)
         setUpFetchedResultsController()
-  showPinsOnMapWhenAppStart()
+        showPinsOnMapWhenAppStart()
         
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-       setUpFetchedResultsController()
-
+        setUpFetchedResultsController()
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fetchedResultsController = nil
     }
-  
+    
     //toPhotoAlbum
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        
         if (segue.identifier == "toPhotoAlbum" ) {
-        if let vc = segue.destination as? PhotoAlbumViewController {
-
-  vc.dataController = dataController
- vc.pin = pinSelected
-            
+            if let vc = segue.destination as? PhotoAlbumViewController {
+                
+                vc.dataController = dataController
+                vc.pin = pinSelected
+                
             }
         }
         
         
     }
-
+    
     
     func showPinsOnMapWhenAppStart(){
-  
+        
         //this will display last pin added !
         //i'm not sure why the last pin added on begin of the aray ! , but it's working fine
         if let lastPin = fetchedResultsController.fetchedObjects?.first {
@@ -83,9 +83,9 @@ var pinSelected: Pin!
             
         }
         
-       
+        
         for location in fetchedResultsController.fetchedObjects! {
-
+            
             let latitude = location.latitude
             let longitude = location.longitude
             
@@ -95,15 +95,15 @@ var pinSelected: Pin!
             annotation.coordinate = coordinate
             
             self.annotations.append(annotation)
- 
+            
         }
         DispatchQueue.main.async {
             self.mapView.addAnnotations(self.annotations)
             
         }
-
-        }
-
+        
+    }
+    
     
     func zoomToLastPin(lastPin:Pin){
         
@@ -115,8 +115,8 @@ var pinSelected: Pin!
         self.mapView.setRegion(region, animated: true)
         
     }
-
-
+    
+    
     @objc func longTap(_ sender: UIGestureRecognizer){
         if sender.state == .ended {
             
@@ -124,16 +124,16 @@ var pinSelected: Pin!
             let touchLocation = sender.location(in: mapView)
             let coordinate = mapView.convert(touchLocation,
                                              toCoordinateFrom: mapView)
-           
-
+            
+            
             addPinToCoreData(latitude: coordinate.latitude, longitude: coordinate.longitude)
-
-
-        
+            
+            
+            
         }
         else if sender.state == .began {
             //Do Whatever You want on Began of Gesture
-
+            
         }
     }
     
@@ -156,14 +156,14 @@ var pinSelected: Pin!
         }
     }
     
-
+    
 }
 
 extension TravelLocationsMapViewController : NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-
+        
         guard let pin = anObject as? Pin else {
             preconditionFailure("All changes observed in the map view controller should be for Point instances")
         }
@@ -191,11 +191,11 @@ extension TravelLocationsMapViewController : NSFetchedResultsControllerDelegate 
 
 extension Pin: MKAnnotation {
     public var coordinate: CLLocationCoordinate2D {
-
+        
         let latDegrees = CLLocationDegrees(latitude)
         let longDegrees = CLLocationDegrees(longitude)
         return CLLocationCoordinate2D(latitude: latDegrees, longitude: longDegrees)
-
+        
     }
 }
 
@@ -222,8 +222,7 @@ extension TravelLocationsMapViewController : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
-        if let annotation = view.annotation  {
-
+        
         let annotation = view.annotation
         let annotationLat = annotation?.coordinate.latitude
         let annotationLong = annotation?.coordinate.longitude
@@ -231,19 +230,20 @@ extension TravelLocationsMapViewController : MKMapViewDelegate {
             for pin in result {
                 if pin.latitude == annotationLat && pin.longitude == annotationLong {
                     pinSelected = pin
+                    performSegue(withIdentifier: "toPhotoAlbum", sender: self)
+                    
                     break
                 }
             }
+            
+            
+            
+            
         }
-
-            performSegue(withIdentifier: "toPhotoAlbum", sender: self)
-        
-        
-        }
-        
         
 
+        
     }
-   
+    
 }
 

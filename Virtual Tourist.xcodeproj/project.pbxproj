@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		FD41598121A469E2009814D4 /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD41598021A469E2009814D4 /* PhotoAlbumViewController.swift */; };
-		FDAE15ED21AC1DBD0014E63C /* DownloadImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE15EC21AC1DBD0014E63C /* DownloadImages.swift */; };
 		FDCF6F7E21A72EFE0048B8BA /* FlickrConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF6F7B21A72EFE0048B8BA /* FlickrConvenience.swift */; };
 		FDCF6F7F21A72EFE0048B8BA /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF6F7C21A72EFE0048B8BA /* FlickrClient.swift */; };
 		FDCF6F8021A72EFE0048B8BA /* FlickrConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF6F7D21A72EFE0048B8BA /* FlickrConstants.swift */; };
@@ -27,7 +26,6 @@
 
 /* Begin PBXFileReference section */
 		FD41598021A469E2009814D4 /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
-		FDAE15EC21AC1DBD0014E63C /* DownloadImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImages.swift; sourceTree = "<group>"; };
 		FDCF6F7B21A72EFE0048B8BA /* FlickrConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrConvenience.swift; sourceTree = "<group>"; };
 		FDCF6F7C21A72EFE0048B8BA /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		FDCF6F7D21A72EFE0048B8BA /* FlickrConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrConstants.swift; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 				FDF0589421A1D18D0009C778 /* DataController.swift */,
 				FDF0589121A1BB7A0009C778 /* LocarionData.xcdatamodeld */,
 				FDCF6F8121A801680048B8BA /* Fliker Data Model */,
-				FDAE15EC21AC1DBD0014E63C /* DownloadImages.swift */,
 				FDCF6F7A21A72EFE0048B8BA /* Flickr API */,
 			);
 			path = Model;
@@ -222,7 +219,6 @@
 				FDF0587F21A1B1F40009C778 /* TravelLocationsMapViewController.swift in Sources */,
 				FDCF6F8321A8019C0048B8BA /* FlikerModel.swift in Sources */,
 				FDCF6F8021A72EFE0048B8BA /* FlickrConstants.swift in Sources */,
-				FDAE15ED21AC1DBD0014E63C /* DownloadImages.swift in Sources */,
 				FDF0589521A1D18D0009C778 /* DataController.swift in Sources */,
 				FDF0589321A1BB7A0009C778 /* LocarionData.xcdatamodeld in Sources */,
 				FDCF6F7E21A72EFE0048B8BA /* FlickrConvenience.swift in Sources */,

@@ -12,30 +12,30 @@ import CoreData
 
 
 class PhotoAlbumViewController: UIViewController {
-
+    
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var newCollectionButton: UIButton!
     @IBOutlet weak var noImageLable: UILabel!
-
+    
     var pin: Pin!
     
     var photosUrlArray = [URL]()
-
+    var selectedPhotos = [IndexPath]()
     
-    var selectedCells:NSMutableArray = []
+    
     private var blockOperations: [BlockOperation] = []
-
+    
     var dataController:DataController!
     
     var fetchedResultsController:NSFetchedResultsController<Photo>!
-
+    
     fileprivate func setupFetchedResultsController() {
         let fetchRequest:NSFetchRequest<Photo> = Photo.fetchRequest()
         let predicate = NSPredicate(format: "pin == %@", self.pin)
-    fetchRequest.predicate = predicate
+        fetchRequest.predicate = predicate
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -44,7 +44,7 @@ class PhotoAlbumViewController: UIViewController {
         
         do {
             try fetchedResultsController.performFetch()
-
+            
         } catch {
             fatalError("The fetch could not be performed: \(error.localizedDescription)")
         }
@@ -59,26 +59,25 @@ class PhotoAlbumViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         newCollectionButton.isEnabled = false
-
+        
         getPhotosFromFlikr()
-
-createAnnotation()
-setFlowLayout()
-
+        
+        createAnnotation()
+        setFlowLayout()
+        
         setupFetchedResultsController()
-        print(fetchedResultsController.fetchedObjects?.count)
-
-
+        
+        
         collectionView.allowsMultipleSelection = true
-    
-      
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-      setupFetchedResultsController()
-
-
+        setupFetchedResultsController()
+        
+        
     }
     func getPhotosFromFlikr(){
         FlickrClient.sharedInstance().getPhotosFormFlicker(latitude: pin.latitude, longitude: pin.longitude, { (success, photoData,NoPhotoMessage, errorString)  in
@@ -92,21 +91,20 @@ setFlowLayout()
                     }
                     
                     if let photo = photoData as? [PhotoParse] {
-
+                        
                         for i in photo {
                             self.photosUrlArray.append(URL(string: i.url_m)!)
-                    
+                            
                         }
                         
                         self.downloadImagesAndsavaItToPhotoData()
-
-                        
-                        print("Number of Photo: \(self.photosUrlArray.count)")
-
                         
                         
-                       
-
+                        
+                        
+                        
+                        
+                        
                     }
                 }else {
                     DispatchQueue.main.async {
@@ -115,12 +113,12 @@ setFlowLayout()
                     }
                 }
                 
-               
+                
                 
             }
         })
     }
-
+    
     func setFlowLayout(){
         let space:CGFloat = 3.0
         let dimension = (view.frame.size.width - (2 * space)) / 3.0
@@ -132,7 +130,7 @@ setFlowLayout()
     
     
     @IBAction func newCollectionTapped(_ sender: UIButton) {
-       
+        
         if sender.currentTitle == "New Collection" {
             photosUrlArray.removeAll()
             getPhotosFromFlikr()
@@ -141,15 +139,15 @@ setFlowLayout()
             
             sender.setTitle("New Collection", for: .normal)
             
-         deletePhotos()
+            deletePhotos()
+            
+            
+        }
         
-
     }
-        
-    }
-
     
-
+    
+    
     func createAnnotation(){
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2DMake(pin.latitude, pin.longitude)
@@ -173,10 +171,10 @@ setFlowLayout()
         } else {
             cell.activityIndicator.stopAnimating()
             cell.activityIndicator.isHidden = true
-
+            
             
         }
-        }
+    }
     
     func downloadImagesAndsavaItToPhotoData(){
         
@@ -191,7 +189,7 @@ setFlowLayout()
                         if let data = data {
                             
                             self.addPhotosToCoreData(data:data)
-
+                            
                             
                             
                         }
@@ -202,10 +200,10 @@ setFlowLayout()
                     
                 }
                 dataTask.resume()
-
+                
             }
-
-
+            
+            
             
             
         }
@@ -214,45 +212,43 @@ setFlowLayout()
     
     func addPhotosToCoreData(data:Data) {
         let photo = Photo(context: dataController.viewContext)
-
-                photo.imageData = data
-                photo.creationDate = Date()
-                photo.pin = pin
         
-            do
-            {
-                try dataController.viewContext.save()
-            }
-            catch
-            {
-                //ERROR
-                print(error)
-            }
+        photo.imageData = data
+        photo.creationDate = Date()
+        photo.pin = pin
+        
+        do
+        {
+            try dataController.viewContext.save()
+        }
+        catch
+        {
+            //ERROR
+            print(error)
+        }
         
         
-     
-      
+        
+        
     }
-
     
     func deletePhotos() {
-//        let noteToDelete = fetchedResultsController.object(at: indexPath)
-//        dataController.viewContext.delete(noteToDelete)
-//        try? dataController.viewContext.save()
         
-        for i in selectedCells {
-            photosUrlArray.remove(at: (i as AnyObject).row)
-        }
-        
-        self.collectionView.performBatchUpdates({
-            self.collectionView.deleteItems(at : selectedCells as! [IndexPath] )
+        for i in selectedPhotos {
             
-            
-        })
-        //make Array of selected Cell == 0 after removed items
-        selectedCells.removeAllObjects()
+            let photoToDelete =  fetchedResultsController.object(at: i)
+            dataController.viewContext.delete(photoToDelete)
+            try? dataController.viewContext.save()
         }
+        selectedPhotos.removeAll()
         
+        
+    }
+    
+    
+    
+    
+    
     deinit {
         // Cancel all block operations when VC deallocates
         for operation: BlockOperation in blockOperations {
@@ -261,9 +257,9 @@ setFlowLayout()
         
         blockOperations.removeAll(keepingCapacity: false)
     }
-
     
-        }
+    
+}
 
 
 
@@ -276,40 +272,40 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
             return sectionInfo.numberOfObjects
         }
         return 0
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-  
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photosCell", for: indexPath) as! PhotoAlbumCollectionViewCell
         
         cell.selectedView.isHidden = true
         
         self.updateUI(cell: cell, status: false)
-
         
-
-            let arrayData = self.fetchedResultsController.fetchedObjects!
-            cell.imageFlikr.image =  UIImage(data: arrayData[indexPath.row].imageData!)
-
+        
+        
+        let arrayData = self.fetchedResultsController.fetchedObjects!
+        cell.imageFlikr.image =  UIImage(data: arrayData[indexPath.row].imageData!)
+        
         
         self.updateUI(cell: cell, status: true)
-
-
-
-      
         
-
-
+        newCollectionButton.isEnabled = true
+        
+        
+        
+        
+        
         
         return cell
-
-        }
-
-
+        
     }
     
     
+}
+
+
 
 
 extension PhotoAlbumViewController: UICollectionViewDelegate {
@@ -317,12 +313,11 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoAlbumCollectionViewCell
-
-        cell.selectedView.isHidden = false
-        selectedCells.add(indexPath)
-        newCollectionButton.setTitle("Remove Selected Pictures", for: .normal)
-
         
+        cell.selectedView.isHidden = false
+        newCollectionButton.setTitle("Remove Selected Pictures", for: .normal)
+        
+        selectedPhotos.append(indexPath)
         
     }
     
@@ -331,10 +326,11 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoAlbumCollectionViewCell
         
         cell.selectedView.isHidden = true
-        selectedCells.remove(indexPath)
         
-        if selectedCells.count == 0 {
-        newCollectionButton.setTitle("New Collection", for: .normal)
+        selectedPhotos.remove(at: indexPath.item)
+        
+        if selectedPhotos.count == 0 {
+            newCollectionButton.setTitle("New Collection", for: .normal)
         }
     }
     
@@ -380,6 +376,6 @@ extension PhotoAlbumViewController:NSFetchedResultsControllerDelegate {
             self.blockOperations.removeAll(keepingCapacity: false)
         })
     }
-
+    
     
 }

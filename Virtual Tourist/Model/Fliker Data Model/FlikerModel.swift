@@ -11,13 +11,13 @@ import Foundation
 struct FlikerResbonse : Codable {
     let photos : Photos
     let stat : String
-
+    
 }
 
 struct Photos : Codable {
     let perpage : Int
     let photo : [PhotoParse]
-
+    
 }
 
 struct PhotoParse : Codable {
