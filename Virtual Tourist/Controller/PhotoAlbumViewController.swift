@@ -331,7 +331,7 @@ extension PhotoAlbumViewController: UICollectionViewDelegate {
         
         cell.selectedView.isHidden = true
         
-        selectedPhotos.remove(at: indexPath.item)
+        selectedPhotos.remove(at: indexPath.startIndex)
         
         if selectedPhotos.count == 0 {
             newCollectionButton.setTitle("New Collection", for: .normal)
