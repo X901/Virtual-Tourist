@@ -124,17 +124,11 @@ class TravelLocationsMapViewController: UIViewController {
             let touchLocation = sender.location(in: mapView)
             let coordinate = mapView.convert(touchLocation,
                                              toCoordinateFrom: mapView)
-            
-            
+ 
             addPinToCoreData(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            
-            
-            
+
         }
-        else if sender.state == .began {
-            //Do Whatever You want on Began of Gesture
-            
-        }
+        
     }
     
     

@@ -60,17 +60,18 @@ class PhotoAlbumViewController: UIViewController {
         super.viewDidLoad()
         newCollectionButton.isEnabled = false
         
-        getPhotosFromFlikr()
+        setupFetchedResultsController()
+
+        //If it's 0 that mean there're no images downloaded yet !
+        if self.fetchedResultsController.fetchedObjects?.count == 0 {
+            getPhotosFromFlikr()
+        }
         
         createAnnotation()
         setFlowLayout()
-        
-        setupFetchedResultsController()
-        
-        
+ 
         collectionView.allowsMultipleSelection = true
-        
-        
+ 
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,12 +100,7 @@ class PhotoAlbumViewController: UIViewController {
                         
                         self.downloadImagesAndsavaItToPhotoData()
                         
-                        
-                        
-                        
-                        
-                        
-                        
+        
                     }
                 }else {
                     DispatchQueue.main.async {
@@ -132,7 +128,18 @@ class PhotoAlbumViewController: UIViewController {
     @IBAction func newCollectionTapped(_ sender: UIButton) {
         
         if sender.currentTitle == "New Collection" {
+          
+            guard let fetchedResults = self.fetchedResultsController.fetchedObjects else {
+                return
+            }
+            
             photosUrlArray.removeAll()
+            
+            for i in fetchedResults {
+                dataController.viewContext.delete(i)
+                try? dataController.viewContext.save()
+            }
+            
             getPhotosFromFlikr()
             
         } else if sender.currentTitle == "Remove Selected Pictures" {
@@ -145,8 +152,7 @@ class PhotoAlbumViewController: UIViewController {
         }
         
     }
-    
-    
+
     
     func createAnnotation(){
         let annotation = MKPointAnnotation()
@@ -226,28 +232,26 @@ class PhotoAlbumViewController: UIViewController {
             //ERROR
             print(error)
         }
-        
-        
-        
-        
+ 
     }
     
     func deletePhotos() {
         
+        var photosToDelete: [Photo] = [Photo]()
+        
         for i in selectedPhotos {
-            
-            let photoToDelete =  fetchedResultsController.object(at: i)
-            dataController.viewContext.delete(photoToDelete)
+            photosToDelete.append(fetchedResultsController.object(at: i))
+        }
+        
+        for i in photosToDelete {
+            dataController.viewContext.delete(i)
             try? dataController.viewContext.save()
         }
+        
         selectedPhotos.removeAll()
-        
-        
+
     }
-    
-    
-    
-    
+
     
     deinit {
         // Cancel all block operations when VC deallocates
