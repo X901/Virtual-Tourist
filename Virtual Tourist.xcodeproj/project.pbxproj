@@ -12,9 +12,9 @@
 		FDCF6F7F21A72EFE0048B8BA /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF6F7C21A72EFE0048B8BA /* FlickrClient.swift */; };
 		FDCF6F8021A72EFE0048B8BA /* FlickrConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF6F7D21A72EFE0048B8BA /* FlickrConstants.swift */; };
 		FDCF6F8321A8019C0048B8BA /* FlikerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF6F8221A8019C0048B8BA /* FlikerModel.swift */; };
-		FDCF6F8721A83BFA0048B8BA /* Photo+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF6F8521A83BFA0048B8BA /* Photo+Extensions.swift */; };
-		FDCF6F8821A83BFA0048B8BA /* Pin+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF6F8621A83BFA0048B8BA /* Pin+Extensions.swift */; };
 		FDCF6F8C21A893740048B8BA /* PhotoAlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCF6F8B21A893740048B8BA /* PhotoAlbumCollectionViewCell.swift */; };
+		FDEB5F2B21AD0208004A0BEC /* Pin+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEB5F2921AD0208004A0BEC /* Pin+Extensions.swift */; };
+		FDEB5F2C21AD0208004A0BEC /* Photo+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEB5F2A21AD0208004A0BEC /* Photo+Extensions.swift */; };
 		FDF0587D21A1B1F40009C778 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF0587C21A1B1F40009C778 /* AppDelegate.swift */; };
 		FDF0587F21A1B1F40009C778 /* TravelLocationsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF0587E21A1B1F40009C778 /* TravelLocationsMapViewController.swift */; };
 		FDF0588221A1B1F40009C778 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDF0588021A1B1F40009C778 /* Main.storyboard */; };
@@ -30,9 +30,9 @@
 		FDCF6F7C21A72EFE0048B8BA /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		FDCF6F7D21A72EFE0048B8BA /* FlickrConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrConstants.swift; sourceTree = "<group>"; };
 		FDCF6F8221A8019C0048B8BA /* FlikerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlikerModel.swift; sourceTree = "<group>"; };
-		FDCF6F8521A83BFA0048B8BA /* Photo+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+Extensions.swift"; sourceTree = "<group>"; };
-		FDCF6F8621A83BFA0048B8BA /* Pin+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Pin+Extensions.swift"; sourceTree = "<group>"; };
 		FDCF6F8B21A893740048B8BA /* PhotoAlbumCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumCollectionViewCell.swift; sourceTree = "<group>"; };
+		FDEB5F2921AD0208004A0BEC /* Pin+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Extensions.swift"; sourceTree = "<group>"; };
+		FDEB5F2A21AD0208004A0BEC /* Photo+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+Extensions.swift"; sourceTree = "<group>"; };
 		FDF0587921A1B1F40009C778 /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF0587C21A1B1F40009C778 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDF0587E21A1B1F40009C778 /* TravelLocationsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationsMapViewController.swift; sourceTree = "<group>"; };
@@ -73,14 +73,14 @@
 			path = "Fliker Data Model";
 			sourceTree = "<group>";
 		};
-		FDCF6F8421A83BFA0048B8BA /* Managed Object Extensions */ = {
+		FDEB5F2D21AD0256004A0BEC /* Managed Object Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				FDCF6F8521A83BFA0048B8BA /* Photo+Extensions.swift */,
-				FDCF6F8621A83BFA0048B8BA /* Pin+Extensions.swift */,
+				FDEB5F2A21AD0208004A0BEC /* Photo+Extensions.swift */,
+				FDEB5F2921AD0208004A0BEC /* Pin+Extensions.swift */,
 			);
 			name = "Managed Object Extensions";
-			path = "../../../../../Downloads/ios-nd-persistence-master-1/Mooskine/Mooskine-complete/Mooskine/Model/Managed Object Extensions";
+			path = "../../Managed Object Extensions";
 			sourceTree = "<group>";
 		};
 		FDF0587021A1B1F40009C778 = {
@@ -116,7 +116,7 @@
 		FDF0588E21A1BAF10009C778 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FDCF6F8421A83BFA0048B8BA /* Managed Object Extensions */,
+				FDEB5F2D21AD0256004A0BEC /* Managed Object Extensions */,
 				FDF0589421A1D18D0009C778 /* DataController.swift */,
 				FDF0589121A1BB7A0009C778 /* LocarionData.xcdatamodeld */,
 				FDCF6F8121A801680048B8BA /* Fliker Data Model */,
@@ -214,15 +214,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDEB5F2B21AD0208004A0BEC /* Pin+Extensions.swift in Sources */,
+				FDEB5F2C21AD0208004A0BEC /* Photo+Extensions.swift in Sources */,
 				FD41598121A469E2009814D4 /* PhotoAlbumViewController.swift in Sources */,
-				FDCF6F8721A83BFA0048B8BA /* Photo+Extensions.swift in Sources */,
 				FDF0587F21A1B1F40009C778 /* TravelLocationsMapViewController.swift in Sources */,
 				FDCF6F8321A8019C0048B8BA /* FlikerModel.swift in Sources */,
 				FDCF6F8021A72EFE0048B8BA /* FlickrConstants.swift in Sources */,
 				FDF0589521A1D18D0009C778 /* DataController.swift in Sources */,
 				FDF0589321A1BB7A0009C778 /* LocarionData.xcdatamodeld in Sources */,
 				FDCF6F7E21A72EFE0048B8BA /* FlickrConvenience.swift in Sources */,
-				FDCF6F8821A83BFA0048B8BA /* Pin+Extensions.swift in Sources */,
 				FDCF6F7F21A72EFE0048B8BA /* FlickrClient.swift in Sources */,
 				FDCF6F8C21A893740048B8BA /* PhotoAlbumCollectionViewCell.swift in Sources */,
 				FDF0587D21A1B1F40009C778 /* AppDelegate.swift in Sources */,
